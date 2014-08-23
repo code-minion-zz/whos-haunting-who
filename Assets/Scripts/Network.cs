@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class Network : MonoBehaviour {
+public class Network : MonoBehaviour 
+{
+    List<Transform> remotePlayers;
 
 	// Use this for initialization
 	void Start () 
@@ -11,8 +13,9 @@ public class Network : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+        	
 	}
 
     void OnGUI()
@@ -28,7 +31,10 @@ public class Network : MonoBehaviour {
 
     void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("RemotePlayer", Vector3.zero, Quaternion.identity, 0);
+        GameObject go = PhotonNetwork.Instantiate("GamePlayer", Vector3.zero, Quaternion.identity, 0);
+        go.GetComponent<vp_FPController>().enabled = true;
+        go.GetComponent<vp_FPInput>().enabled = true;
+        go.transform.FindChild("FPSCamera").gameObject.SetActive(true);
     }
 
     void OnPhotonRandomJoinFailed()
