@@ -28,7 +28,7 @@ public class Network : MonoBehaviour {
 
     void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("GamePlayer", Vector3.zero, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("RemotePlayer", Vector3.zero, Quaternion.identity, 0);
     }
 
     void OnPhotonRandomJoinFailed()
