@@ -33,4 +33,5 @@ MonoBehaviour:
   - SetPosition
   - TaggedPlayer
   - DebugMsg
+  - Grab
   DisableAutoOpenWizard: 0

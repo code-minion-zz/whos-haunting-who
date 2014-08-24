@@ -4,6 +4,13 @@ public class NetworkTransform : Photon.MonoBehaviour
 {
     private Vector3 correctPlayerPos = Vector3.zero; // We lerp towards this
     private Quaternion correctPlayerRot = Quaternion.identity; // We lerp towards this
+
+    void Start()
+    {
+        correctPlayerPos = transform.position;
+        correctPlayerRot = transform.rotation;
+    }
+
     // Update is called once per frame
     void Update()
     {
