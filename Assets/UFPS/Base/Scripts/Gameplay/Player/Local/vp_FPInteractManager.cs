@@ -24,6 +24,7 @@ public class vp_FPInteractManager : MonoBehaviour
 
 	protected vp_FPPlayerEventHandler m_Player = null; // for caching our player event handler to send in the 'TryInteract' method
 	protected vp_FPCamera m_Camera = null; // for caching vp_FPCamera ( the camera )
+    public vp_FPCamera AssignCamera;
 	protected vp_Interactable m_CurrentInteractable = null; // for caching what the player is currently interacting with
 	protected Texture m_OriginalCrosshair = null; // for caching the original crosshair if any
 	protected vp_Interactable m_LastInteractable = null; // for caching the last interactable
@@ -41,7 +42,7 @@ public class vp_FPInteractManager : MonoBehaviour
 		
 		m_Player = GetComponent<vp_FPPlayerEventHandler>(); // cache the player event handler
 		m_Camera = GetComponentInChildren<vp_FPCamera>(); // cache vp_FPCamera
-		
+        if (m_Camera == null) m_Camera = AssignCamera;
 	}
 	
 

@@ -15,12 +15,17 @@ public class Network : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        	
+
 	}
 
     void OnGUI()
     {
         GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+
+        if (PhotonNetwork.inRoom)
+        {
+            GUILayout.Label(PhotonNetwork.room.playerCount.ToString());            
+        }
     }
 
     void OnJoinedLobby()

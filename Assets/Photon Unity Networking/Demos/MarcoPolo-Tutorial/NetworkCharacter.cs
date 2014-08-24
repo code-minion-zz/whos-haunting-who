@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PhotonView))]
 public class NetworkCharacter : Photon.MonoBehaviour
 {
     private Vector3 correctPlayerPos = Vector3.zero; // We lerp towards this
@@ -22,8 +23,8 @@ public class NetworkCharacter : Photon.MonoBehaviour
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
 
-            myThirdPersonController myC = GetComponent<myThirdPersonController>();
-            stream.SendNext((int)myC._characterState);
+            //myThirdPersonController myC = GetComponent<myThirdPersonController>();
+            //stream.SendNext((int)myC._characterState);
         }
         else
         {
@@ -31,8 +32,15 @@ public class NetworkCharacter : Photon.MonoBehaviour
             this.correctPlayerPos = (Vector3)stream.ReceiveNext();
             this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
 
-            myThirdPersonController myC = GetComponent<myThirdPersonController>();
-            myC._characterState = (CharacterState)stream.ReceiveNext();
+            //myThirdPersonController myC = GetComponent<myThirdPersonController>();
+            //myC._characterState = (CharacterState)stream.ReceiveNext();
         }
+    }
+
+
+    [RPC]
+    void DebugMsg(string str)
+    {
+        Debug.Log(str);
     }
 }
