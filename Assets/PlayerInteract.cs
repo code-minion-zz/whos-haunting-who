@@ -22,18 +22,34 @@ public class PlayerInteract : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (!canInteract) return;
-
-        if (Input.GetKeyDown(KeyCode.E))
+        switch (currentAction)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            bool success = Physics.Raycast(ray, out hit, 2f, LayerMask.NameToLayer("Interactable"));
+            case PlayerAction.Holding:
 
-            if (success)
+                break;
+
+            default:
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                hit.transform.GetComponent<Interactable>();
+                Debug.Log("Casting");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                bool success = Physics.Raycast(ray, out hit, 200f);
+
+                if (success)
+                {
+                    Debug.Log("Hit Found");
+                    Interactable inter = hit.transform.GetComponent<Interactable>();
+                    if (inter == null) return;
+                    if (inter is Draggable) 
+                            hit.transform.GetComponent<PhotonView>().RPC("Grab", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);                        
+                    else if (inter is Holdable)
+                            hit.transform.GetComponent<PhotonView>().RPC("Hold", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);
+                 
+                }
             }
+            break;
         }
 	}
 }

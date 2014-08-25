@@ -10,6 +10,8 @@ public class Network : MonoBehaviour
     {
         PhotonNetwork.logLevel = PhotonLogLevel.Full;
         PhotonNetwork.ConnectUsingSettings("0.1");
+
+        Physics.IgnoreLayerCollision(8, 8);
 	}
 	
 	// Update is called once per frame
@@ -36,9 +38,10 @@ public class Network : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        GameObject go = PhotonNetwork.Instantiate("GamePlayer", Vector3.zero, Quaternion.identity, 0);
+        GameObject go = PhotonNetwork.Instantiate("GamePlayer2", new Vector3(19,1,19), Quaternion.identity, 0);
         go.GetComponent<vp_FPController>().enabled = true;
         go.GetComponent<vp_FPInput>().enabled = true;
+        go.GetComponent<PlayerInteract>().enabled = true;
         go.transform.FindChild("FPSCamera").gameObject.SetActive(true);
     }
 
