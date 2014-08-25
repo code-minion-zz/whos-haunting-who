@@ -5,6 +5,8 @@ public class EventManager : Photon.MonoBehaviour
 {
     public static EventManager Instance;
 
+
+
 	// Use this for initialization
 	void Start () 
     {
