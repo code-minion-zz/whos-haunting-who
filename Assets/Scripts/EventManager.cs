@@ -5,8 +5,10 @@ public class EventManager : Photon.MonoBehaviour
 {
     public static EventManager Instance;
 
-    public Transform localPlayer;
-    public Transform remotePlayer;
+    [SerializeField]
+    private Transform localPlayer;
+    [SerializeField]
+    private Transform remotePlayer;
     float nextCheckTime;
     const float delay = 2f;
 
@@ -35,7 +37,7 @@ public class EventManager : Photon.MonoBehaviour
     {
         if (Time.time < nextCheckTime) return;
 
-        nextCheckTime = Time.time + delay;
+        nextCheckTime = Time.time + delay * 10f;
                 
         Plane[] planes;
         planes = GeometryUtility.CalculateFrustumPlanes(localPlayer.GetComponentInChildren<Camera>());
@@ -50,6 +52,6 @@ public class EventManager : Photon.MonoBehaviour
 
     void ShowApparition()
     {
-        PhotonNetwork.Instantiate("Apparition", remotePlayer.position, remotePlayer.rotation);
+        PhotonNetwork.Instantiate("Apparition", remotePlayer.position, remotePlayer.rotation, 0);
     }
 }
