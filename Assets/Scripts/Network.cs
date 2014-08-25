@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class Network : MonoBehaviour 
 {
-    List<Transform> remotePlayers;
+    PhotonPlayer myPlayer;
+    PhotonPlayer otherPlayer;
 
 	// Use this for initialization
 	void Start () 
@@ -36,6 +37,11 @@ public class Network : MonoBehaviour
 
     }
 
+    void OnPhotonPlayerConnected(PhotonPlayer player)
+    {
+
+    }
+    
     void OnJoinedRoom()
     {
         GameObject go = PhotonNetwork.Instantiate("GamePlayer2", new Vector3(19,1,19), Quaternion.identity, 0);
