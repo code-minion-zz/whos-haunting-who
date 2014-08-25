@@ -28,18 +28,12 @@ public class NetworkTransform : Photon.MonoBehaviour
             // We own this player: send the others our data
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
-
-            //myThirdPersonController myC = GetComponent<myThirdPersonController>();
-            //stream.SendNext((int)myC._characterState);
         }
         else
         {
             // Network player, receive data
             this.correctPlayerPos = (Vector3)stream.ReceiveNext();
             this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
-
-            //myThirdPersonController myC = GetComponent<myThirdPersonController>();
-            //myC._characterState = (CharacterState)stream.ReceiveNext();
         }
     }
 

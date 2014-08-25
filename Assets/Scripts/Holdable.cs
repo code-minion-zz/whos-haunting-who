@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Holdable : MonoBehaviour {
+public class Holdable : Interactable 
+{
+    [RPC]
+    void Hold(int _id)
+    {
+        Transform _transform = PhotonView.Find(_id).transform;
+        transform.parent = _transform;
+        transform.localPosition = Vector3.zero;
+        target = _transform;
+        Interacting = true;
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [RPC]
+    void Unhold()
+    {
+        transform.parent = null;
+        target = null;
+        Interacting = false;
+    }
 }

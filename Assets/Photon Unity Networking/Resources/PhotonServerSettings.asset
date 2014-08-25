@@ -36,4 +36,5 @@ MonoBehaviour:
   - Grab
   - Hold
   - Unhold
+  - Snap
   DisableAutoOpenWizard: 0
