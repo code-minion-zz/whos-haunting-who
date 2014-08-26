@@ -12,6 +12,7 @@ public class Draggable : Interactable
 	// Use this for initialization
 	void Start () 
     {
+        correctPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -23,7 +24,8 @@ public class Draggable : Interactable
 
             if (diff.magnitude > LeashDistance)
             {
-                transform.rigidbody.AddForce(diff, ForceMode.VelocityChange);
+                transform.position += diff;
+                //transform.rigidbody.AddForce(diff, ForceMode.VelocityChange);
             }
             if (diff.magnitude > BreakDistance)
             {
