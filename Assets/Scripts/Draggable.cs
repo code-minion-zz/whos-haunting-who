@@ -5,7 +5,7 @@ public class Draggable : Interactable
 {
     Vector3 correctPos;
     Quaternion correctRot;
-    protected Vector3 previousPosOfTarget;
+    protected Vector3 offsetFromTarget;
     protected float LeashDistance = 0.5f;
     protected float BreakDistance = 2f;
     
@@ -22,11 +22,10 @@ public class Draggable : Interactable
         {
             Vector3 diff = target.position - transform.position;
 
-            if (diff.magnitude > LeashDistance)
-            {
-                transform.position += diff;
-                //transform.rigidbody.AddForce(diff, ForceMode.VelocityChange);
-            }
+            float speedScale = diff.magnitude * 2;
+
+            Vector3.Lerp(transform.position, correctPos, Time.deltaTime * speedScale);
+
             if (diff.magnitude > BreakDistance)
             {
                 photonView.RPC("Snap", PhotonTargets.All);
@@ -70,7 +69,7 @@ public class Draggable : Interactable
         Transform _transform = view.transform;
         Debug.Log("DRAG INITIATED");
         target = _transform;
-        previousPosOfTarget = target.position;
+        previousPosOfTarget = transform.position - target.position;
         Interacting = true;
     }
 
