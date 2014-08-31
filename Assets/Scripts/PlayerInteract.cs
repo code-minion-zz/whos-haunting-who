@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerInteract : MonoBehaviour {
+public class PlayerInteract : MonoBehaviour 
+{
 
     public enum PlayerAction
     {
@@ -10,8 +11,9 @@ public class PlayerInteract : MonoBehaviour {
         Holding
     }
 
-    PlayerAction currentAction;
-    bool canInteract = false;
+    public PlayerAction currentAction;
+    Transform objectInHand;
+//    bool canInteract = false;
 
 	// Use this for initialization
 	void Start () 
@@ -42,10 +44,18 @@ public class PlayerInteract : MonoBehaviour {
                     Debug.Log("Hit Found");
                     Interactable inter = hit.transform.GetComponent<Interactable>();
                     if (inter == null) return;
-                    if (inter is Draggable) 
-                            hit.transform.GetComponent<PhotonView>().RPC("Grab", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);                        
+                    if (inter is Draggable)
+                    {
+                        currentAction = PlayerAction.Dragging;
+                        objectInHand = hit.transform;
+                        hit.transform.GetComponent<PhotonView>().RPC("Grab", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);                        
+                    }
                     else if (inter is Holdable)
-                            hit.transform.GetComponent<PhotonView>().RPC("Hold", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);
+                    {
+                        currentAction = PlayerAction.Holding;
+                        objectInHand = hit.transform;
+                        hit.transform.GetComponent<PhotonView>().RPC("Hold", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);
+                    }
                  
                 }
             }

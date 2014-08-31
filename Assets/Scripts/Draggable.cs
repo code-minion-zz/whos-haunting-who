@@ -69,7 +69,7 @@ public class Draggable : Interactable
         Transform _transform = view.transform;
         Debug.Log("DRAG INITIATED");
         target = _transform;
-        previousPosOfTarget = transform.position - target.position;
+        offsetFromTarget = transform.position - target.position;
         Interacting = true;
     }
 
