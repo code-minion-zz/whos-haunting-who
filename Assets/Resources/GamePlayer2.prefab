@@ -167,7 +167,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .873134315, g: .873134315, b: .873134315, a: .0196078438}
+  m_BackGroundColor: {r: .608564019, g: .922938764, b: .985294104, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -554,6 +554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2160925fda3042f4c98bec62c9ab26ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InterActee: {fileID: 0}
+  InteractRate: 20
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1

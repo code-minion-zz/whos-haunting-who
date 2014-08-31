@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerInteract : MonoBehaviour {
 
 	public Interactable InterActee;
+	public float InteractRate = 20f;
+
+	float CurrentInteractTime;
 
 	// Use this for initialization
 	void Start () 
@@ -14,11 +17,14 @@ public class PlayerInteract : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+		CurrentInteractTime -= Time.deltaTime;
+
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			if (InterActee != null)
 			{
 				InterActee.transform.GetComponent<PhotonView>().RPC("Release", PhotonTargets.AllBufferedViaServer);
+				InterActee = null;
 			}
 			else
 			{
@@ -50,8 +56,9 @@ public class PlayerInteract : MonoBehaviour {
 			}
 		}
 
-		if (InterActee != null && InterActee is Draggable)
+		if (InterActee != null && InterActee is Draggable && CurrentInteractTime <= 0)
 		{
+			CurrentInteractTime = 1f / InteractRate;
 			InterActee.transform.GetComponent<PhotonView>().RPC("UpdatePosition", PhotonTargets.AllBufferedViaServer, Camera.main.transform.position + Camera.main.transform.forward, transform.rotation);
 		}
 	}

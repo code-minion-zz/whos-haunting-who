@@ -17,11 +17,12 @@ public class Draggable : Interactable
 	// Update is called once per frame
 	void Update()
 	{
-		transform.position = Vector3.Lerp(transform.position, correctPos, Time.deltaTime * 8);
-		transform.rotation = Quaternion.Lerp(transform.rotation, correctRot, Time.deltaTime * 8);
+		transform.position = Vector3.Lerp(transform.position, correctPos, Time.deltaTime * 6);
+		transform.rotation = Quaternion.Lerp(transform.rotation, correctRot, Time.deltaTime * 6);
 
 		if (IsUsed)
 		{
+
 			transform.GetComponent<BoxCollider>().enabled = false;
 		}
 		else
