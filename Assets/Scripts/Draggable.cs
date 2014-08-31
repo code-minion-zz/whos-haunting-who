@@ -1,83 +1,61 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Draggable : Interactable 
 {
     Vector3 correctPos;
     Quaternion correctRot;
-    protected Vector3 offsetFromTarget;
-    protected float LeashDistance = 0.5f;
-    protected float BreakDistance = 2f;
-    
-	// Use this for initialization
+
+  	// Use this for initialization
 	void Start () 
     {
         correctPos = transform.position;
+		correctRot = transform.rotation;
 	}
 	
 	// Update is called once per frame
-	void Update ()
-    {
-        if (Interacting)
-        {
-            Vector3 diff = target.position - transform.position;
+	void Update()
+	{
+		transform.position = Vector3.Lerp(transform.position, correctPos, Time.deltaTime * 5);
+		transform.rotation = Quaternion.Lerp(transform.rotation, correctRot, Time.deltaTime * 5);
 
-            float speedScale = diff.magnitude * 2;
-
-            Vector3.Lerp(transform.position, correctPos, Time.deltaTime * speedScale);
-
-            if (diff.magnitude > BreakDistance)
-            {
-                photonView.RPC("Snap", PhotonTargets.All);
-            }
-        }
-        else if (!Interacting)
-        {
-            if (!photonView.isMine)
-            {
-                transform.position = Vector3.Lerp(transform.position, correctPos, Time.deltaTime * 5);
-                transform.rotation = Quaternion.Lerp(transform.rotation, correctRot, Time.deltaTime * 5);
-            }
-        }
+		if (IsUsed)
+		{
+			transform.GetComponent<BoxCollider>().enabled = false;
+		}
+		else
+		{
+			transform.GetComponent<BoxCollider>().enabled = true;
+		}
 	}
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!Interacting)
-        {
-            if (stream.isWriting)
-            {
-                // We own this player: send the others our data
-                stream.SendNext(transform.position);
-                stream.SendNext(transform.rotation);
+	[RPC]
+	void Capture()
+	{
+		IsUsed = true;
+	}
 
-            }
-            else
-            {
-                // Network player, receive data
-                correctPos = (Vector3)stream.ReceiveNext();
-                correctRot = (Quaternion)stream.ReceiveNext();
+	[RPC]
+	void Release()
+	{
+		IsUsed = false;
+	}
 
-            }
-        }
-    }
-
-    [RPC]
-    void Grab(int _id)
-    {
-        PhotonView view = PhotonView.Find(_id);
-        Transform _transform = view.transform;
-        Debug.Log("DRAG INITIATED");
-        target = _transform;
-        previousPosOfTarget = transform.position - target.position;
-        Interacting = true;
-    }
-
-    [RPC]
-    void Snap()
-    {
-        Debug.Log("SNAP!");
-        target = null;
-        Interacting = false;
-    }
+	[RPC]
+	void UpdatePosition(Vector3 Position, Quaternion Rotation)
+	{
+		if (IsUsed)
+		{
+			correctPos = Position;
+			correctRot = Rotation;
+			//transform.position = Position;
+			//transform.rotation = Rotation;
+			Debug.Log("Updated position of " + transform.name + " to: " + Position.ToString() + " | " + Rotation.eulerAngles.ToString());
+		}
+		else
+		{
+			throw new InvalidOperationException("You should not update the position if the object isn't used.");
+		}
+	}
 }
