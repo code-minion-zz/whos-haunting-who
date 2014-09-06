@@ -36,8 +36,7 @@ public class Network : MonoBehaviour
 
     void OnJoinedLobby()
     {
-        PhotonNetwork.JoinRandomRoom();
-
+        NetworkLobby.Instance.createGameButton.isEnabled = true;
     }
 
     void OnPhotonPlayerConnected(PhotonPlayer player)
@@ -45,17 +44,17 @@ public class Network : MonoBehaviour
 
     }
     
-    void OnJoinedRoom()
-    {
-        GameObject go = PhotonNetwork.Instantiate("GamePlayer2", new Vector3(19,1,19), Quaternion.identity, 0);
-        go.GetComponent<vp_FPController>().enabled = true;
-        go.GetComponent<vp_FPInput>().enabled = true;
-        go.GetComponent<PlayerInteract>().enabled = true;
-        go.transform.FindChild("FPSCamera").gameObject.SetActive(true);
-    }
+    //void OnJoinedRoom()
+    //{
+    //    GameObject go = PhotonNetwork.Instantiate("GamePlayer2", new Vector3(19,1,19), Quaternion.identity, 0);
+    //    go.GetComponent<vp_FPController>().enabled = true;
+    //    go.GetComponent<vp_FPInput>().enabled = true;
+    //    go.GetComponent<PlayerInteract>().enabled = true;
+    //    go.transform.FindChild("FPSCamera").gameObject.SetActive(true);
+    //}
 
-    void OnPhotonRandomJoinFailed()
-    {
-        PhotonNetwork.CreateRoom(null);
-    }
+    //void OnPhotonRandomJoinFailed()
+    //{
+    //    PhotonNetwork.CreateRoom(null);
+    //}
 }
