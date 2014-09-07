@@ -12,6 +12,9 @@ public class Network : MonoBehaviour
         PhotonNetwork.logLevel = PhotonLogLevel.Full;
         PhotonNetwork.ConnectUsingSettings("0.1");
 
+		PhotonNetwork.sendRate = 30;
+		PhotonNetwork.sendRateOnSerialize = 30;
+
         Physics.IgnoreLayerCollision(8, 8);
 	}
 	

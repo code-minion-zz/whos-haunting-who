@@ -37,4 +37,7 @@ MonoBehaviour:
   - Hold
   - Unhold
   - Snap
+  - Capture
+  - Release
+  - UpdatePosition
   DisableAutoOpenWizard: 0

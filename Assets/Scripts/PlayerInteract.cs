@@ -1,19 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerInteract : MonoBehaviour 
-{
+public class PlayerInteract : MonoBehaviour {
 
-    public enum PlayerAction
-    {
-        None,
-        Dragging,
-        Holding
-    }
+	public Interactable InterActee;
+	public float InteractRate = 20f;
 
-    public PlayerAction currentAction;
-    Transform objectInHand;
-//    bool canInteract = false;
+	float CurrentInteractTime;
 
 	// Use this for initialization
 	void Start () 
@@ -24,42 +17,49 @@ public class PlayerInteract : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        switch (currentAction)
-        {
-            case PlayerAction.Holding:
+		CurrentInteractTime -= Time.deltaTime;
 
-                break;
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (InterActee != null)
+			{
+				InterActee.transform.GetComponent<PhotonView>().RPC("Release", PhotonTargets.AllBufferedViaServer);
+				InterActee = null;
+			}
+			else
+			{
+				Debug.Log("Casting");
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				bool success = Physics.Raycast(ray, out hit, 200f);
 
-            default:
+				if (success)
+				{
+					Debug.Log("Hit Found");
+					InterActee = hit.transform.GetComponent<Interactable>();
+					if (InterActee == null)
+					{
+						//Never return in an update method.
+						//return;
+					}
+					if (InterActee is Draggable)
+					{
+						InterActee.transform.GetComponent<PhotonView>().RPC("Capture", PhotonTargets.AllBufferedViaServer);
+					}
+					//Unused code = possible redundant code. Will it be used in the future?
+					//else if (inter is Holdable)
+					//{
+					//	hit.transform.GetComponent<PhotonView>().RPC("Hold", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);
+					//}
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Casting");
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                bool success = Physics.Raycast(ray, out hit, 200f);
+				}
+			}
+		}
 
-                if (success)
-                {
-                    Debug.Log("Hit Found");
-                    Interactable inter = hit.transform.GetComponent<Interactable>();
-                    if (inter == null) return;
-                    if (inter is Draggable)
-                    {
-                        currentAction = PlayerAction.Dragging;
-                        objectInHand = hit.transform;
-                        hit.transform.GetComponent<PhotonView>().RPC("Grab", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);                        
-                    }
-                    else if (inter is Holdable)
-                    {
-                        currentAction = PlayerAction.Holding;
-                        objectInHand = hit.transform;
-                        hit.transform.GetComponent<PhotonView>().RPC("Hold", PhotonTargets.AllViaServer, PhotonView.Get(this).viewID);
-                    }
-                 
-                }
-            }
-            break;
-        }
+		if (InterActee != null && InterActee is Draggable && CurrentInteractTime <= 0)
+		{
+			CurrentInteractTime = 1f / InteractRate;
+			InterActee.transform.GetComponent<PhotonView>().RPC("UpdatePosition", PhotonTargets.AllBufferedViaServer, Camera.main.transform.position + Camera.main.transform.forward, transform.rotation);
+		}
 	}
 }
