@@ -5,6 +5,8 @@ public class Network : MonoBehaviour
 {
     PhotonPlayer myPlayer;
     PhotonPlayer otherPlayer;
+    float nextUpdate;
+    float delay = 5f;
 
 	// Use this for initialization
 	void Start () 
@@ -21,7 +23,12 @@ public class Network : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        if (Time.time < nextUpdate)
+        {
+            PhotonNetwork.GetRoomList();
 
+            nextUpdate = Time.time + delay;
+        }
 	}
 
     void OnGUI()
@@ -34,10 +41,6 @@ public class Network : MonoBehaviour
         }
     }
 
-    void OnJoinedLobby()
-    {
-        NetworkLobby.Instance.createGameButton.isEnabled = true;
-    }
 
     void OnPhotonPlayerConnected(PhotonPlayer player)
     {

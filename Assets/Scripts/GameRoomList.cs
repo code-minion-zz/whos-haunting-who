@@ -5,6 +5,7 @@ public class GameRoomList : MonoBehaviour
 {
     public static GameRoomList Instance;
     public GameObject roomPrefab;
+    UIGrid grid;
 
     List<GameRoomPanel> inactivePool;
     List<GameRoomPanel> activePool;
@@ -18,15 +19,16 @@ public class GameRoomList : MonoBehaviour
             Instance = this;
         }
 
+        grid = GetComponent<UIGrid>();
         activePool = new List<GameRoomPanel>(poolCapacity);
         inactivePool = new List<GameRoomPanel>(poolCapacity);
         for (int i = 0; i < poolCapacity; ++i)
         {
-            CreateRoom();
+            CreatePanel();
         }
 	}
 
-    void CreateRoom()
+    void CreatePanel()
     {
         GameObject go = (GameObject)Instantiate(roomPrefab);
 
@@ -40,6 +42,7 @@ public class GameRoomList : MonoBehaviour
     void AddRoom(RoomInfo room)
     {
         GameRoomPanel panel = GetPanel();
+        //NGUITools.SetActive(panel.gameObject, true);
         activePool.Add(panel);
         panel.Room = room;
     }
@@ -57,7 +60,7 @@ public class GameRoomList : MonoBehaviour
 
         if (inactivePool.Count < 1)
         {
-            CreateRoom();
+            CreatePanel();
         }
 
         retval = inactivePool[0];
@@ -66,7 +69,7 @@ public class GameRoomList : MonoBehaviour
         return retval;
     }
 
-    void OnReceivedRoomListUpdate()
+    public void RefreshServerList()
     {
         Debug.Log("OnReceivedRoomListUpdate");
 
@@ -81,5 +84,12 @@ public class GameRoomList : MonoBehaviour
         {
             AddRoom(room);
         }
+
+        grid.repositionNow = true;
+    }
+
+    void OnReceivedRoomListUpdate()
+    {
+        RefreshServerList();
     }
 }
