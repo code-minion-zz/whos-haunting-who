@@ -14,9 +14,9 @@ MonoBehaviour:
   s_decals:
   - '{
 
-    04-getout
+    DecalLeakingMossy0012_1_S
 
-    e27c1fad8aabf4341b234f236155ae03
+    c01ecade941c1214d8e5dbb11f0b82b2
 
     (-45.0, 45.0, 0.0)
 
@@ -25,31 +25,6 @@ MonoBehaviour:
     (0, 0, 0, 0)
 
     0
-
-    0
-
-    0
-
-    0
-
-    0
-
-    0
-
-    }'
-  - '{
-
-    DecalLeakingMossy0012_1_S
-
-    c01ecade941c1214d8e5dbb11f0b82b2
-
-    (-45.0, 45.0, 0.0)
-
-    (0.8, 1.2, 10.0)
-
-    (0, 0, 0, 0)
-
-    1
 
     0
 
@@ -74,7 +49,7 @@ MonoBehaviour:
 
     (0, 0, 0, 0)
 
-    1
+    0
 
     0
 
@@ -87,12 +62,64 @@ MonoBehaviour:
     0
 
     }'
+  - '{
+
+    04-getout
+
+    e27c1fad8aabf4341b234f236155ae03
+
+    (-45.0, 45.0, 0.0)
+
+    (0.8, 1.2, 1.0)
+
+    (0, 0, 0, 0)
+
+    1
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    }'
+  - '{
+
+    dollOutside
+
+    70bab40c657203c438ecd15e2a48dc94
+
+    (-45.0, 45.0, 0.0)
+
+    (0.8, 1.2, 1.0)
+
+    (0, 0, 0, 0)
+
+    2
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    }'
   names:
-  - 04-getout
-  - 04-getout
-  - 04-getout
-  isPacked: 000000
+  - DecalLeakingMossy0012_1_S
+  - DecalLeakingMossy0012_1_S
+  - DecalLeakingMossy0012_1_S
+  - DecalLeakingMossy0012_1_S
+  isPacked: 00000000
   materials:
+  - 
   - 
   - 
   - 
@@ -100,5 +127,6 @@ MonoBehaviour:
   - Transparent/Diffuse
   - Transparent/Diffuse
   - Transparent/Diffuse
-  atlasSize: 001000000010000000100000
-  padding: 040000000400000004000000
+  - Transparent/Diffuse
+  atlasSize: 00100000001000000010000000100000
+  padding: 04000000040000000400000004000000
