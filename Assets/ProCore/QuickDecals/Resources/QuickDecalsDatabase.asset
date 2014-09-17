@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfeb40e027395d45a5545d3b06bcea6, type: 3}
+  m_Name: QuickDecalsDatabase
+  m_EditorClassIdentifier: 
+  s_decals:
+  - '{
+
+    04-getout
+
+    e27c1fad8aabf4341b234f236155ae03
+
+    (-45.0, 45.0, 0.0)
+
+    (0.8, 1.2, 1.0)
+
+    (0, 0, 0, 0)
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    }'
+  - '{
+
+    DecalLeakingMossy0012_1_S
+
+    c01ecade941c1214d8e5dbb11f0b82b2
+
+    (-45.0, 45.0, 0.0)
+
+    (0.8, 1.2, 10.0)
+
+    (0, 0, 0, 0)
+
+    1
+
+    0
+
+    0
+
+    0
+
+    0
+
+    0
+
+    }'
+  - '{
+
+    DecalsLeaking0166_1_S
+
+    ee3aeed59fb386c469bc80bab5ea31ad
+
+    (-45.0, 45.0, 0.0)
+
+    (0.8, 1.2, 1.0)
+
+    (0, 0, 0, 0)
+
+    1
+
+    0
+
+    1
+
+    0
+
+    0
+
+    0
+
+    }'
+  names:
+  - 04-getout
+  - 04-getout
+  - 04-getout
+  isPacked: 000000
+  materials:
+  - 
+  - 
+  - 
+  shaders:
+  - Transparent/Diffuse
+  - Transparent/Diffuse
+  - Transparent/Diffuse
+  atlasSize: 001000000010000000100000
+  padding: 040000000400000004000000
