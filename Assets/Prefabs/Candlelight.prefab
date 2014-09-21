@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 108: {fileID: 10800000}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Candlelight
   m_TagString: Untagged
@@ -63,6 +64,19 @@ Light:
   m_ShadowAngle: 0
   m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7480286963f1dd4fb3913f7d033170f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minValue: .300000012
+  maxValue: .699999988
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
