@@ -9,6 +9,11 @@ public class NetworkTransform : Photon.MonoBehaviour
     {
         correctPlayerPos = transform.position;
         correctPlayerRot = transform.rotation;
+
+		if (photonView.isMine)
+		{
+			//gameObject.GetComponent<PlayerVisibility>().enabled = false;
+		}
     }
 
     // Update is called once per frame
